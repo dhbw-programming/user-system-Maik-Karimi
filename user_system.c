@@ -61,11 +61,28 @@ char *users_get_name(user_id id){
 }
 
 void users_delete(user_id id){
-
+ userlist[id].name = NULL;
+ userlist[id].email = NULL;
 }
 
 void users_resize(int new_capacity) {
 
+int x = new_capacity;
+users *new_userlist = (users*) malloc(sizeof(users) * x);
+ for(int i = 0; i<x ;i++) {
+   new_userlist[i].name = NULL;  
+ }
+ for(int i = 0; i <size ; i++)
+ {
+    new_userlist[i] = userlist[i];
+ }
+ free(userlist);
+ users_initialize_table(x);
+ for(int i = 0; i <x ; i++)
+ {
+    userlist[i] = new_userlist[i];
+ }
+ free(new_userlist);
 }
 
 
